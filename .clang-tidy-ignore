@@ -1,0 +1,12 @@
+# Note: Header files included by non-ignored source files will still be analyzed.
+# In that case, use the HeaderFilterRegex field in .clang-tidy
+
+# Ignore all protobuf/gRPC generated source files
+*.pb.cc
+*.pb.h
+
+# ignore third party source files
+/thirdparty/*
+
+# ignore generated files
+/cmake-build-*

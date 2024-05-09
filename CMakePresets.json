@@ -1,0 +1,72 @@
+{
+  "version": 6,
+  "configurePresets": [
+    {
+      "name": "cmake-dev-debug-asan-usan",
+      "displayName": "Debug with ASan & USan Check",
+      "binaryDir": "cmake-dev-debug-asan-usan",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "/opt/devel-toolchain.cmake",
+        "CMAKE_BUILD_TYPE": "Debug",
+        "DEMO_ENABLE_TEST": "ON",
+        "DEMO_ENABLE_EXAMPLE": "ON",
+        "DEMO_ENABLE_CLANG_TIDY": "ON",
+        "DEMO_ENABLE_COVERAGE": "OFF",
+        "DEMO_ENABLE_SANITIZERS": "ON",
+        "SANITIZE_ADDRESS": "ON",
+        "SANITIZE_UNDEFINED": "ON",
+        "SANITIZE_THREAD": "OFF",
+        "DEMO_ENABLE_BENCHMARK": "OFF"
+      }
+    },
+    {
+      "name": "cmake-dev-debug-tsan",
+      "displayName": "Debug with TSan Check",
+      "binaryDir": "cmake-dev-debug-tsan",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "/opt/devel-toolchain.cmake",
+        "CMAKE_BUILD_TYPE": "Debug",
+        "DEMO_ENABLE_TEST": "ON",
+        "DEMO_ENABLE_EXAMPLE": "ON",
+        "DEMO_ENABLE_CLANG_TIDY": "ON",
+        "DEMO_ENABLE_COVERAGE": "OFF",
+        "DEMO_ENABLE_SANITIZERS": "ON",
+        "SANITIZE_ADDRESS": "OFF",
+        "SANITIZE_UNDEFINED": "OFF",
+        "SANITIZE_THREAD": "ON",
+        "DEMO_ENABLE_BENCHMARK": "OFF"
+      }
+    },
+    {
+      "name": "cmake-dev-debug-cov",
+      "displayName": "Debug with Code Coverage",
+      "binaryDir": "cmake-dev-debug-cov",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "/opt/devel-toolchain.cmake",
+        "CMAKE_BUILD_TYPE": "Debug",
+        "DEMO_ENABLE_TEST": "ON",
+        "DEMO_ENABLE_EXAMPLE": "ON",
+        "DEMO_ENABLE_CLANG_TIDY": "ON",
+        "DEMO_ENABLE_COVERAGE": "ON",
+        "DEMO_ENABLE_SANITIZERS": "OFF",
+        "DEMO_ENABLE_BENCHMARK": "OFF"
+      }
+    },
+    {
+      "name": "cmake-dev-release-benchmark",
+      "displayName": "Release with Benchmark & Documents",
+      "binaryDir": "cmake-dev-release-benchmark",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "/opt/devel-toolchain.cmake",
+        "CMAKE_BUILD_TYPE": "Release",
+        "DEMO_ENABLE_TEST": "ON",
+        "DEMO_ENABLE_EXAMPLE": "ON",
+        "DEMO_ENABLE_CLANG_TIDY": "ON",
+        "DEMO_ENABLE_COVERAGE": "OFF",
+        "DEMO_ENABLE_SANITIZERS": "OFF",
+        "DEMO_ENABLE_BENCHMARK": "ON",
+        "DEMO_ENABLE_DOCUMENT": "ON"
+      }
+    }
+  ]
+}

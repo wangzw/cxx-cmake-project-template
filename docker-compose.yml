@@ -1,0 +1,13 @@
+services:
+  demo:
+    image: mayjojo/cxx-cmake-project-template:main
+    entrypoint: /usr/sbin/init
+    hostname: demo
+    restart: always
+    privileged: true
+    tty: true
+    ports:
+      - "8022:22"
+    volumes:
+      - ~/.ssh/authorized_keys:/root/.ssh/authorized_keys:ro
+      - .:/root/workspace/demo

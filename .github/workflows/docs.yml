@@ -1,0 +1,52 @@
+name: Document
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+  workflow_dispatch:
+
+defaults:
+  run:
+    shell: bash -ileo pipefail {0}
+
+jobs:
+  docs:
+    name: "Build & Deploy Documents"
+
+    runs-on: ubuntu-latest
+    container:
+      image: mayjojo/cxx-cmake-project-template:main
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Build Documents
+        run: |
+          set -eux
+          CPUS=$(grep -c ^processor /proc/cpuinfo)
+          
+          cmake --preset cmake-dev-release-benchmark
+          
+          cd ${GITHUB_WORKSPACE}/cmake-dev-release-benchmark
+          make docs
+          ls -la ${GITHUB_WORKSPACE}/cmake-dev-release-benchmark/html/
+
+      - name: Deploy Documents
+        uses: peaceiris/actions-gh-pages@v4
+        if: github.ref == 'refs/heads/main'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: cmake-dev-release-benchmark/html/
+          destination_dir: latest
+
+      - name: Deploy Documents
+        uses: peaceiris/actions-gh-pages@v4
+        if: ${{ startsWith(github.ref, 'refs/heads/tags/v') }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: cmake-dev-release-benchmark/html/
+          destination_dir: ${{ env.GITHUB_REF_NAME }}

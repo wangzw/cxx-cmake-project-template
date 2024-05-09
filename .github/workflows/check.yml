@@ -1,0 +1,111 @@
+name: Check
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  workflow_dispatch:
+
+defaults:
+  run:
+    shell: bash -ileo pipefail {0}
+
+jobs:
+  check:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - preset: cmake-dev-debug-asan-usan
+            name: Debug with ASan & USan Check
+          - preset: cmake-dev-debug-tsan
+            name: Debug with TSan Check
+          - preset: cmake-dev-debug-cov
+            name: Debug with Code Coverage
+          - preset: cmake-dev-release-benchmark
+            name: Release with Benchmark Test
+
+    name: "${{ matrix.name }}"
+
+    runs-on: ubuntu-latest
+    container:
+      image: mayjojo/cxx-cmake-project-template:main
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build
+        run: |
+          set -eux
+          CPUS=$(grep -c ^processor /proc/cpuinfo)
+          
+          cmake --preset ${{ matrix.preset }}
+          
+          cd ${GITHUB_WORKSPACE}/${{ matrix.preset }}
+          
+          make -j ${CPUS}
+          make check_public_header
+          make install
+
+      - name: Package
+        run: |
+          set -eux
+          cd ${GITHUB_WORKSPACE}/${{ matrix.preset }}
+          
+          cpack -G RPM
+          cpack -G DEB
+
+      - name: Test
+        run: |
+          set -eux
+          CPUS=$(grep -c ^processor /proc/cpuinfo)
+          
+          cd ${GITHUB_WORKSPACE}/${{ matrix.preset }}
+          ctest --force-new-ctest-process --verbose -j ${CPUS}
+
+      - name: Benchmark
+        if: matrix.preset == 'cmake-dev-release-benchmark'
+        run: |
+          set -eux
+          cd ${GITHUB_WORKSPACE}/cmake-dev-release-benchmark
+          
+          make benchmark
+
+      - name: Generate Code Coverage
+        if: matrix.preset == 'cmake-dev-debug-cov'
+        run: |
+          set -eux
+          cd ${GITHUB_WORKSPACE}/cmake-dev-debug-cov
+          
+          make coverage-xml
+
+      - name: Code Coverage Summary Report
+        if: matrix.preset == 'cmake-dev-debug-cov'
+        uses: irongut/CodeCoverageSummary@v1.3.0
+        with:
+          filename: cmake-dev-debug-cov/coverage-xml.xml
+          badge: true
+          format: markdown
+          output: both
+
+      - name: Add Coverage PR Comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        if: ${{ (github.event_name == 'pull_request') && (matrix.preset == 'cmake-dev-debug-cov') }}
+        with:
+          recreate: true
+          path: code-coverage-results.md
+
+      - name: Set Git Safe Directory
+        if: matrix.preset == 'cmake-dev-debug-cov'
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        if: matrix.preset == 'cmake-dev-debug-cov'
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: wangzw/cxx-cmake-project-template
+          files: cmake-dev-debug-cov/coverage-xml.xml

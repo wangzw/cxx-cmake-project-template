@@ -1,0 +1,46 @@
+cmake_minimum_required(VERSION 3.27)
+
+list(APPEND CMAKE_MODULE_PATH
+        ${CMAKE_SOURCE_DIR}/cmake
+        ${CMAKE_SOURCE_DIR}/cmake/sanitizers/cmake
+)
+
+project(Demo VERSION 0.0.1 LANGUAGES C CXX)
+
+set(DEMO_VERSION_STRING ${PROJECT_VERSION})
+string(REPLACE "." ";" VERSION_LIST ${DEMO_VERSION_STRING})
+list(GET VERSION_LIST 0 DEMO_VERSION_MAJOR)
+list(GET VERSION_LIST 1 DEMO_VERSION_MINOR)
+list(GET VERSION_LIST 2 DEMO_VERSION_PATCH)
+
+set(PROJECT_CONTACT "release@example.com")
+set(PROJECT_DESCRIPTION "Example C++ project")
+set(PROJECT_DESCRIPTION_LONG "Example C++ project")
+set(PROJECT_LICENSE "Apache License 2.0")
+set(PROJECT_PACKAGE_GROUP "development")
+set(PROJECT_URL "https://github.com/wangzw/cxx-cmake-project-template")
+set(PROJECT_VENDOR "example")
+
+set(DOXYGEN_PROJECT_NAME ${PROJECT_NAME})
+set(DOXYGEN_PROJECT_NUMBER ${PROJECT_VERSION})
+set(DOXYGEN_PROJECT_BRIEF ${PROJECT_DESCRIPTION})
+
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -O0")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0")
+
+set(CMAKE_VERBOSE_MAKEFILE ON)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_FIND_PACKAGE_PREFER_CONFIG ON)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
+include(options)
+include(build)
+include(docs)
+
+add_subdirectory(src)
+
+include(install)
+include(package)
