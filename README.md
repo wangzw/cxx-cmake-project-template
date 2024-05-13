@@ -10,7 +10,7 @@ This repository is a good start, and you can build your project from here.
 
 ## Features
 
-This demo project include almost everything that a rigorous project should have.
+This demo project includes almost everything that a rigorous project should have.
 
 * CMake support
 * Code sanitizer
@@ -18,7 +18,7 @@ This demo project include almost everything that a rigorous project should have.
 * GoogleTest and Google Benchmark support
 * Doxygen and a builtin theme
 * Clang format and clang tidy support
-* CMake ExternalProject based third party management
+* CMake ExternalProject based dependency management
 * CPack based package support
 * Dev Container support
 * Github workflows support
@@ -48,9 +48,9 @@ And now you have a container based development environment with all dependencies
 
 ## CMake support
 
-Some CMake functions and predefined targets are created to ease of use of CMake.
+Some CMake functions and predefined targets are created to ease the use of CMake.
 
-This follow functions are used to add your targets. 
+The following functions are used to add your targets. 
 Replace `xxx` to your project name in lower case.
 They have covered many details such as clang-tidy, code coverage, code sanitizer and installation.
 
