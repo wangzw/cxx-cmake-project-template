@@ -18,8 +18,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - preset: cmake-dev-debug-asan-usan
-            name: Debug with ASan & USan Check
+          - preset: cmake-dev-debug-asan-ubsan
+            name: Debug with ASan & UBSan Check
           - preset: cmake-dev-debug-tsan
             name: Debug with TSan Check
           - preset: cmake-dev-debug-cov

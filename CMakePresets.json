@@ -2,9 +2,9 @@
   "version": 6,
   "configurePresets": [
     {
-      "name": "cmake-dev-debug-asan-usan",
-      "displayName": "Debug with ASan & USan Check",
-      "binaryDir": "cmake-dev-debug-asan-usan",
+      "name": "cmake-dev-debug-asan-ubsan",
+      "displayName": "Debug with ASan & UBSan Check",
+      "binaryDir": "cmake-dev-debug-asan-ubsan",
       "toolchainFile": "${sourceDir}/cmake/toolchain.cmake",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
