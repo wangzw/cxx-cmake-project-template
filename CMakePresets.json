@@ -58,7 +58,7 @@
       "binaryDir": "cmake-dev-release-benchmark",
       "toolchainFile": "${sourceDir}/cmake/toolchain.cmake",
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
         "DEMO_ENABLE_TEST": "ON",
         "DEMO_ENABLE_EXAMPLE": "ON",
         "DEMO_ENABLE_CLANG_TIDY": "ON",
