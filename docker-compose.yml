@@ -1,6 +1,6 @@
 services:
   demo:
-    image: mayjojo/cxx-cmake-project-template:main
+    image: ghcr.io/wangzw/cxx-cmake-project-template:main
     entrypoint: /usr/sbin/init
     hostname: demo
     restart: always
