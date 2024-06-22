@@ -10,3 +10,4 @@
 
 # ignore generated files
 /cmake-build-*
+/cmake-dev-*
