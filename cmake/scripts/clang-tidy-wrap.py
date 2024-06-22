@@ -5,8 +5,8 @@ import subprocess
 import sys
 from os import path
 
-DEFAULT_CLANG_TIDY_IGNORE = ".clang-tidy-ignore"
-DEFAULT_CLANG_TIDY_CONFIG = ".clang-tidy"
+DEFAULT_CLANG_TIDY_IGNORE = "../../.clang-tidy-ignore"
+DEFAULT_CLANG_TIDY_CONFIG = "../../.clang-tidy"
 
 
 def filter_file(file):
