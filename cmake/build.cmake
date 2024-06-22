@@ -24,7 +24,7 @@ endif ()
 if (DEMO_ENABLE_CLANG_TIDY)
     find_program(CLANG_TIDY_EXE NAMES "clang-tidy" REQUIRED)
     list(TRANSFORM EXTRA_CLANG_TIDY_COMPILER_FLAGS PREPEND "EXTRA_CLANG_TIDY_COMPILER_FLAGS=")
-    set(CLANG_TIDY_COMMAND "${CMAKE_SOURCE_DIR}/clang-tidy-wrap.py" "${CLANG_TIDY_EXE}" ${EXTRA_CLANG_TIDY_COMPILER_FLAGS})
+    set(CLANG_TIDY_COMMAND "${CMAKE_SOURCE_DIR}/cmake/scripts/clang-tidy-wrap.py" "${CLANG_TIDY_EXE}" ${EXTRA_CLANG_TIDY_COMPILER_FLAGS})
 endif ()
 
 # function used to add a library with clang-tidy, sanitizers and coverage configure

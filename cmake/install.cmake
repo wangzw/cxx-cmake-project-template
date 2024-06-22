@@ -53,7 +53,7 @@ endfunction()
 function(demo_check_public_header)
     _demo_list_public_header(${CMAKE_SOURCE_DIR} HEADERS)
     add_custom_target(check_public_header
-            COMMAND ${PROJECT_SOURCE_DIR}/check-header.py
+            COMMAND ${CMAKE_SOURCE_DIR}/cmake/scripts/check-header.py
             ${PROJECT_SOURCE_DIR}/src
             ${HEADERS}
             WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
