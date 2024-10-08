@@ -131,6 +131,14 @@ function(demo_add_example)
     if (DEMO_ENABLE_SANITIZERS AND AAL_FILES)
         add_sanitizers(${AAL_TARGET})
     endif ()
+
+    if (ASDE_ENABLE_COVERAGE)
+        append_coverage_compiler_flags_to_target(${AAL_TARGET})
+
+        foreach (COVERAGE_TARGET IN LISTS ASDE_COVERAGE_TARGETS)
+            add_dependencies(${COVERAGE_TARGET} ${AAL_TARGET})
+        endforeach ()
+    endif ()
 endfunction()
 
 if (DEMO_ENABLE_TEST)
