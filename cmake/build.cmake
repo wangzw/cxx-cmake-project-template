@@ -27,6 +27,20 @@ if (DEMO_ENABLE_CLANG_TIDY)
     set(CLANG_TIDY_COMMAND "${CMAKE_SOURCE_DIR}/cmake/scripts/clang-tidy-wrap.py" "${CLANG_TIDY_EXE}" ${EXTRA_CLANG_TIDY_COMPILER_FLAGS})
 endif ()
 
+# enable lto
+include(CheckIPOSupported)
+check_ipo_supported(RESULT IPO_SUPPORTED OUTPUT IPO_MESSAGE)
+
+if (IPO_SUPPORTED)
+    message(STATUS "Check IPO/LTO optimization: Yes")
+    if (CMAKE_BUILD_TYPE STREQUAL "Release" OR CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
+        message(STATUS "Enable IPO/LTO for ${CMAKE_BUILD_TYPE} build")
+        set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
+    endif ()
+else ()
+    message(STATUS "Check IPO/LTO optimization: No: ${IPO_MESSAGE}")
+endif ()
+
 # function used to add a library with clang-tidy, sanitizers and coverage configure
 function(demo_add_library)
     cmake_parse_arguments(PARSE_ARGV 0 AAL "SHARED" "TARGET" "HEADERS;FILES")
