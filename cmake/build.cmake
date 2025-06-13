@@ -66,6 +66,7 @@ function(demo_add_library)
     target_include_directories(${AAL_TARGET}
             PUBLIC
             "$<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src>"
+            "$<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/src>"
             "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
     )
 
@@ -111,6 +112,7 @@ function(demo_add_executable)
     target_include_directories(${AAL_TARGET}
             PUBLIC
             "$<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src>"
+            "$<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/src>"
             "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
     )
 
